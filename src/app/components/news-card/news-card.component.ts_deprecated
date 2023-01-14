@@ -1,0 +1,81 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { ArticlesEntity } from 'src/app/interfaces/news-response';
+import { ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { IndexStorageService } from 'src/app/storage/useStorage'
+import { element } from 'protractor';
+
+@Component({
+  selector: 'app-news-card',
+  templateUrl: './news-card.component.html',
+  styleUrls: ['./news-card.component.scss'],
+})
+
+
+export class NewsCardComponent implements OnInit {
+  @Input() news: ArticlesEntity;
+  constructor(private toastController: ToastController, private indexStorage: IndexStorageService) {}
+
+
+ngOnInit() {}
+
+
+saved_clicked(event){
+  let j=1;
+  const store = new Storage();
+  var index_string = this.indexStorage.index_storage.toString()  
+  store.create();
+  // console.log(event);
+  console.log("THIS NEWS: ",this.news);
+  store.forEach(element =>{
+    j++;
+  });
+  if(j!=this.indexStorage.index_storage){
+    this.indexStorage.index_storage=j;
+  }
+  if(Storage.length==0){
+    store.set(index_string,this.news);
+  }
+  store.forEach(element => {
+  console.log("TOHLE JE ELEMENT=: ",element);
+  if(this.news.title==element.title){
+    this.presentToast('bottom',"You've already saved this article");
+  }else{
+    store.set(index_string,this.news);
+    this.presentToast('bottom','article saved')
+    this.indexStorage.index_storage++;
+  }
+  console.log("INDEX_STORAGE: ",this.indexStorage.index_storage)
+  console.log("J JE TOTO: ", j)
+
+  });
+
+  
+  
+
+  
+  
+}
+  async presentToast(position:'bottom',message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 1500,
+      position: position,
+      cssClass: 'custom-toast',
+      buttons: [
+        {
+          text: 'Dismiss',
+          role: 'cancel'
+        }
+      ],
+    });
+
+    await toast.present();
+
+
+
+ 
+
+}
+}
+

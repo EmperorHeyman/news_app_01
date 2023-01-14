@@ -1,0 +1,21 @@
+<div *ngIf="id=='saved'">
+    <ion-button value="news.url" (click)="removed_clicked($event)" id="remove_button" color="light">odebrat</ion-button>
+</div>
+<div *ngIf="id!='saved'">
+    <ion-button value="news.url" (click)="saved_clicked($event)" id="save_button" color="light">uložit</ion-button>
+</div>
+
+
+
+<ion-card id="news_card_style" href="{{ news.url }}" target="_blank" rel="noopener noreferrer">
+
+    <ion-img *ngIf="news.urlToImage" src="{{ news.urlToImage }}"></ion-img>
+    <ion-card-header>
+        <ion-card-subtitle>{{ news?.source?.name }}</ion-card-subtitle>
+        <ion-card-title> {{ news.title }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+        {{ news.description }}
+    </ion-card-content>
+</ion-card>
