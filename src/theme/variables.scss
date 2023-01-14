@@ -3,7 +3,12 @@
 
 /** Ionic CSS Variables **/
 
+ion-scroll {
+    white-space: nowrap;
+}
+
 :root {
+    --overflow: hidden;
     /** primary **/
     --ion-color-primary: #5260ff;
     --ion-color-primary-rgb: 82, 96, 255;

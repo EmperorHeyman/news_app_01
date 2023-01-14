@@ -253,10 +253,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "FolderPage": () => (/* binding */ FolderPage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 4929);
 /* harmony import */ var _folder_page_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./folder.page.html?ngResource */ 4394);
 /* harmony import */ var _folder_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./folder.page.scss?ngResource */ 6518);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 3184);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 3184);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ 2816);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ 6942);
 /* harmony import */ var _services_newsapi_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/newsapi.service */ 3190);
@@ -275,6 +275,21 @@ let FolderPage = class FolderPage {
         this.newsApiService = newsApiService;
         this.newsList = [];
         this.i = 1;
+    }
+    isRefresherEnabled() {
+        if (this.slider) {
+            const activeSlideIdx = this.slider.getActiveIndex();
+            if (this.components && this.components['_results']) {
+                if (this.components['_results'](activeSlideIdx)) {
+                    if (this.components['_results'](activeSlideIdx)['_scrollContent']) {
+                        if (this.components['_results'](activeSlideIdx)['_scrollContent'].nativeElement.scrollTop <= 10) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
     // GetSearch(){
     //   console.log(this.SearchVal);
@@ -328,8 +343,12 @@ FolderPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__.ActivatedRoute },
     { type: _services_newsapi_service__WEBPACK_IMPORTED_MODULE_2__.NewsapiService }
 ];
-FolderPage = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
+FolderPage.propDecorators = {
+    slider: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_6__.ViewChild, args: ['mySlider',] }],
+    components: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_6__.ViewChildren, args: ['myScroll',] }]
+};
+FolderPage = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
         selector: 'app-folder',
         template: _folder_page_html_ngResource__WEBPACK_IMPORTED_MODULE_0__,
         styles: [_folder_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_1__]
@@ -3512,7 +3531,7 @@ module.exports = "#news_card_style {\n  margin-top: 0;\n}\n\n#save_button {\n  m
 /***/ ((module) => {
 
 "use strict";
-module.exports = "ion-menu-button {\n  color: var(--ion-color-dark);\n}\n\n#container {\n  text-align: center;\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#container strong {\n  font-size: 20px;\n  line-height: 26px;\n}\n\n#container p {\n  font-size: 16px;\n  line-height: 22px;\n  color: #8c8c8c;\n  margin: 0;\n}\n\n#container a {\n  text-decoration: none;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvbGRlci5wYWdlLnNjc3MiLCIuLlxcLi5cXC4uXFwuLlxcRW1wZXJvcnMlMjBuZXdzXFxzcmNcXGFwcFxcZm9sZGVyXFxmb2xkZXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksNEJBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxPQUFBO0VBQ0EsUUFBQTtFQUNBLFFBQUE7RUFDQSwyQkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxjQUFBO0VBQ0EsU0FBQTtBQ0NKOztBREVBO0VBQ0kscUJBQUE7QUNDSiIsImZpbGUiOiJmb2xkZXIucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLW1lbnUtYnV0dG9uIHtcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLWRhcmspO1xufVxuXG4jY29udGFpbmVyIHtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGxlZnQ6IDA7XG4gICAgcmlnaHQ6IDA7XG4gICAgdG9wOiA1MCU7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKC01MCUpO1xufVxuXG4jY29udGFpbmVyIHN0cm9uZyB7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIGxpbmUtaGVpZ2h0OiAyNnB4O1xufVxuXG4jY29udGFpbmVyIHAge1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBsaW5lLWhlaWdodDogMjJweDtcbiAgICBjb2xvcjogIzhjOGM4YztcbiAgICBtYXJnaW46IDA7XG59XG5cbiNjb250YWluZXIgYSB7XG4gICAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xufSIsImlvbi1tZW51LWJ1dHRvbiB7XG4gIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItZGFyayk7XG59XG5cbiNjb250YWluZXIge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG4gIHRvcDogNTAlO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoLTUwJSk7XG59XG5cbiNjb250YWluZXIgc3Ryb25nIHtcbiAgZm9udC1zaXplOiAyMHB4O1xuICBsaW5lLWhlaWdodDogMjZweDtcbn1cblxuI2NvbnRhaW5lciBwIHtcbiAgZm9udC1zaXplOiAxNnB4O1xuICBsaW5lLWhlaWdodDogMjJweDtcbiAgY29sb3I6ICM4YzhjOGM7XG4gIG1hcmdpbjogMDtcbn1cblxuI2NvbnRhaW5lciBhIHtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xufSJdfQ== */";
+module.exports = "ion-menu-button {\n  color: var(--ion-color-dark);\n}\n\n#container {\n  text-align: center;\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#container strong {\n  font-size: 20px;\n  line-height: 26px;\n}\n\n#container p {\n  font-size: 16px;\n  line-height: 22px;\n  color: #8c8c8c;\n  margin: 0;\n}\n\n#container a {\n  text-decoration: none;\n}\n\n.scroll-y {\n  overflow: hidden !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvbGRlci5wYWdlLnNjc3MiLCIuLlxcLi5cXC4uXFwuLlxcRW1wZXJvcnMlMjBuZXdzXFxzcmNcXGFwcFxcZm9sZGVyXFxmb2xkZXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksNEJBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxPQUFBO0VBQ0EsUUFBQTtFQUNBLFFBQUE7RUFDQSwyQkFBQTtBQ0NKOztBREVBO0VBQ0ksZUFBQTtFQUNBLGlCQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxjQUFBO0VBQ0EsU0FBQTtBQ0NKOztBREVBO0VBQ0kscUJBQUE7QUNDSjs7QURFQTtFQUNJLDJCQUFBO0FDQ0oiLCJmaWxlIjoiZm9sZGVyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tZW51LWJ1dHRvbiB7XG4gICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1kYXJrKTtcbn1cblxuI2NvbnRhaW5lciB7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICBsZWZ0OiAwO1xuICAgIHJpZ2h0OiAwO1xuICAgIHRvcDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgtNTAlKTtcbn1cblxuI2NvbnRhaW5lciBzdHJvbmcge1xuICAgIGZvbnQtc2l6ZTogMjBweDtcbiAgICBsaW5lLWhlaWdodDogMjZweDtcbn1cblxuI2NvbnRhaW5lciBwIHtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gICAgbGluZS1oZWlnaHQ6IDIycHg7XG4gICAgY29sb3I6ICM4YzhjOGM7XG4gICAgbWFyZ2luOiAwO1xufVxuXG4jY29udGFpbmVyIGEge1xuICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbn1cblxuLnNjcm9sbC15IHtcbiAgICBvdmVyZmxvdzogaGlkZGVuICFpbXBvcnRhbnQ7XG59IiwiaW9uLW1lbnUtYnV0dG9uIHtcbiAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1kYXJrKTtcbn1cblxuI2NvbnRhaW5lciB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgdG9wOiA1MCU7XG4gIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgtNTAlKTtcbn1cblxuI2NvbnRhaW5lciBzdHJvbmcge1xuICBmb250LXNpemU6IDIwcHg7XG4gIGxpbmUtaGVpZ2h0OiAyNnB4O1xufVxuXG4jY29udGFpbmVyIHAge1xuICBmb250LXNpemU6IDE2cHg7XG4gIGxpbmUtaGVpZ2h0OiAyMnB4O1xuICBjb2xvcjogIzhjOGM4YztcbiAgbWFyZ2luOiAwO1xufVxuXG4jY29udGFpbmVyIGEge1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG5cbi5zY3JvbGwteSB7XG4gIG92ZXJmbG93OiBoaWRkZW4gIWltcG9ydGFudDtcbn0iXX0= */";
 
 /***/ }),
 
@@ -3534,7 +3553,7 @@ module.exports = "<div *ngIf=\"id=='saved'\">\n    <ion-button value=\"news.url\
 /***/ ((module) => {
 
 "use strict";
-module.exports = "<ion-content class=\"ion-padding\">\n    <ion-refresher slot=\"fixed\" [pullFactor]=\"0.5\" [pullMin]=\"100\" [pullMax]=\"200\" (ionRefresh)=\"handleRefresh($event)\">\n        <ion-refresher-content></ion-refresher-content>\n    </ion-refresher>\n    <ion-header [translucent]=\"true\">\n        <ion-toolbar>\n            <ion-buttons slot=\"start\">\n                <ion-menu-button></ion-menu-button>\n            </ion-buttons>\n            <ion-title>{{ folder | titlecase }}\n            </ion-title>\n            <!-- <div>\n            <ion-item>\n                <ion-label>Search: </ion-label>\n                <ion-input [(ngModel)]=\"SearchVal\" placeholder=\"...\"></ion-input>\n            </ion-item>\n            <ion-button (click)=\"GetSearch()\" fill=\"outline\" expand=\"full\">search</ion-button>\n        </div>\n        {{SearchVal}} -->\n        </ion-toolbar>\n    </ion-header>\n\n    <ion-content [fullscreen]=\"false\">\n        <ion-header collapse=\"condense\">\n            <ion-toolbar>\n                <ion-title size=\"large\">{{ folder }}</ion-title>\n            </ion-toolbar>\n        </ion-header>\n\n        <div id=\"container\">\n            <ion-spinner *ngIf=\"!newsList\"></ion-spinner>\n        </div>\n        <div *ngIf=\"newsList\">\n            <div *ngFor=\"let news of newsList\">\n                <app-news-card [news]=\"news\"></app-news-card>\n            </div>\n        </div>\n        <ion-infinite-scroll (ionInfinite)=\"onIonInfinite($event)\">\n            <ion-infinite-scroll-content></ion-infinite-scroll-content>\n        </ion-infinite-scroll>\n    </ion-content>";
+module.exports = "<ion-content class=\"ion-padding\">\n\n    <ion-header [translucent]=\"true\">\n        <ion-toolbar>\n            <ion-buttons slot=\"start\">\n                <ion-menu-button></ion-menu-button>\n            </ion-buttons>\n            <ion-title>{{ folder | titlecase }}\n            </ion-title>\n            <!-- <div>\n            <ion-item>\n                <ion-label>Search: </ion-label>\n                <ion-input [(ngModel)]=\"SearchVal\" placeholder=\"...\"></ion-input>\n            </ion-item>\n            <ion-button (click)=\"GetSearch()\" fill=\"outline\" expand=\"full\">search</ion-button>\n        </div>\n        {{SearchVal}} -->\n        </ion-toolbar>\n    </ion-header>\n\n    <ion-content [fullscreen]=\"false\">\n        <ion-refresher slot=\"fixed\" [enabled]=\"isRefresherEnabled()\" [pullFactor]=\"0.5\" (ionRefresh)=\"handleRefresh($event)\">\n            <ion-refresher-content></ion-refresher-content>\n        </ion-refresher>\n        <ion-header collapse=\"condense\">\n            <ion-toolbar>\n                <ion-title size=\"large\">{{ folder }}</ion-title>\n            </ion-toolbar>\n        </ion-header>\n\n        <div id=\"container\">\n            <ion-spinner *ngIf=\"!newsList\"></ion-spinner>\n        </div>\n        <div *ngIf=\"newsList\">\n            <div *ngFor=\"let news of newsList\">\n                <app-news-card [news]=\"news\"></app-news-card>\n            </div>\n        </div>\n        <ion-infinite-scroll (ionInfinite)=\"onIonInfinite($event)\">\n            <ion-infinite-scroll-content></ion-infinite-scroll-content>\n        </ion-infinite-scroll>\n    </ion-content>";
 
 /***/ })
 

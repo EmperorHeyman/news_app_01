@@ -17,7 +17,7 @@ export class AppComponent {
     { title: 'Sport', url: '/sports', icon: 'basketball' },
     { title: 'Zábava', url: '/entertainment', icon: 'videocam' },
     { title: 'Technologie', url: '/technology', icon: 'laptop' },
-    { title: 'Zdravý', url: '/health', icon: 'medkit' },
+    { title: 'Zdraví', url: '/health', icon: 'medkit' },
     { title: 'Věda', url: '/science', icon: 'rocket' },
     { title: 'Uložené', url: '/saved', icon: 'save' },
     // {title: 'Search', url: '/search', icon: 'search'}
